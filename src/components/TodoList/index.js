@@ -1,6 +1,6 @@
 import React from 'react';
-import { Todo } from './Todo';
-import { EditTodoForm } from './EditToolForm';
+import { Todo } from '../Todo';
+import { EditTodoForm } from '../EditToolForm';
 
 export const TodoList = ({ todos, toggleComplete, deleteTodo, editTodo, editTask }) => {
     return (
