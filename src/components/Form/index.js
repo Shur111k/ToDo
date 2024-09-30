@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
 import styles from './style.module.css';
 
-export const TodoForm = ({ addTodo }) => {
-  const [value, setValue] = useState('');
+export const TodoForm = ({ task = '', isEditing = false, handleSubmit }) => {
+  const [value, setValue] = useState(task);
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    addTodo(value);
+    handleSubmit(value);
     setValue('');
   };
 
+  const handleChangeValue = (e) => {
+    setValue(e.target.value);
+  };
+
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={onSubmit}>
       <input
         type="text"
         className={styles.todoInput}
         value={value}
-        placeholder="What is the task to do?"
-        onChange={(e) => setValue(e.target.value)}
+        placeholder={isEditing ? 'Update Task' : 'What is the task to do?'}
+        onChange={handleChangeValue}
       />
-      <button type="submit" className={styles.todoBtn}>Add Task</button>
+      <button type="submit" className={styles.todoBtn}>
+        {isEditing ? 'Update Task' : 'Add Task'}
+      </button>
     </form>
   );
 };

@@ -11,7 +11,7 @@ export const Todo = ({ task, toggleComplete, deleteTodo, editTodo }) => {
   };
 
   const handleEditTodo = () => {
-    editTodo(task.id);
+    editTodo(task);
   };
 
   const handleDeleteTodo = () => {

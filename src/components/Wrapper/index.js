@@ -4,16 +4,24 @@ import { v4 as uuidv4 } from 'uuid';
 import { TodoList } from '../TodoList';
 import styles from './style.module.css';
 
-uuidv4();
-
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
+  const [editingTodo, setEditingTodo] = useState(null);
 
   const addTodo = (todo) => {
     setTodos((prevTodos) => [
       ...prevTodos,
-      { id: uuidv4(), task: todo, completed: false, isEditing: false }
+      { id: uuidv4(), task: todo, completed: false }
     ]);
+  };
+
+  const updateTodo = (task) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === editingTodo.id ? { ...todo, task } : todo
+      )
+    );
+    setEditingTodo(null);
   };
 
   const toggleComplete = (id) => {
@@ -28,32 +36,23 @@ export const TodoWrapper = () => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  const editTodo = (id) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
-      )
-    );
-  };
-
-  const editTask = (task, id) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
-      )
-    );
+  const handleEditTodo = (todo) => {
+    setEditingTodo(todo);
   };
 
   return (
     <div className={styles.wrapper}>
       <h1>Get Things To Do</h1>
-      <TodoForm addTodo={addTodo} />
+      {editingTodo ? (
+        <TodoForm task={editingTodo.task} isEditing={true} handleSubmit={updateTodo} />
+      ) : (
+        <TodoForm handleSubmit={addTodo} />
+      )}
       <TodoList
         todos={todos}
         toggleComplete={toggleComplete}
         deleteTodo={deleteTodo}
-        editTodo={editTodo}
-        editTask={editTask}
+        editTodo={handleEditTodo}
       />
     </div>
   );

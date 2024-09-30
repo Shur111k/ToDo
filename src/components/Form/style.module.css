@@ -23,6 +23,7 @@
     color: var(--white-color);
     border: none;
     padding: 0.55rem;
+    width: 7rem;
     cursor: pointer;
   }
   
