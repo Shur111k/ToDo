@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { TodoForm } from '../Form';
 import { v4 as uuidv4 } from 'uuid';
 import { TodoList } from '../TodoList';
@@ -6,7 +6,6 @@ import styles from './style.module.css';
 
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
-  const [editingTodo, setEditingTodo] = useState(null);
 
   const addTodo = (todo) => {
     setTodos((prevTodos) => [
@@ -15,13 +14,12 @@ export const TodoWrapper = () => {
     ]);
   };
 
-  const updateTodo = (task) => {
+  const updateTodo = (taskId, value) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
-        todo.id === editingTodo.id ? { ...todo, task } : todo
+        todo.id === taskId ? {...todo, task: value} : todo
       )
     );
-    setEditingTodo(null);
   };
 
   const toggleComplete = (id) => {
@@ -36,23 +34,19 @@ export const TodoWrapper = () => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  const handleEditTodo = (todo) => {
-    setEditingTodo(todo);
-  };
-
   return (
     <div className={styles.wrapper}>
       <h1>Get Things To Do</h1>
-      {editingTodo ? (
-        <TodoForm task={editingTodo.task} isEditing={true} handleSubmit={updateTodo} />
-      ) : (
-        <TodoForm handleSubmit={addTodo} />
-      )}
+      <TodoForm
+        handleSubmit={addTodo}
+        placeholder="Add tings to do"
+        buttonText="Add To Do"
+      />
       <TodoList
         todos={todos}
         toggleComplete={toggleComplete}
-        deleteTodo={deleteTodo}
-        editTodo={handleEditTodo}
+        deleteTodo={deleteTodo}    
+        editTodo={updateTodo}  
       />
     </div>
   );

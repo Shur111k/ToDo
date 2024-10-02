@@ -1,7 +1,7 @@
 import React from 'react';
 import { Todo } from '../Todo';
 
-export const TodoList = ({ todos, toggleComplete, deleteTodo, editTodo }) => {
+export const TodoList = ({ todos, toggleComplete, deleteTodo, editTodo}) => {
   return (
     <>
       {todos.map((todo) => (
