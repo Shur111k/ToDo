@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import styles from './style.module.css';
 
 export const Todo = ({ task, toggleComplete, deleteTodo, editTodo}) => {
-
   const [isEditing, setIsEditing] = useState(false); 
 
   const handleToggleComplete = () => {
@@ -44,10 +43,8 @@ export const Todo = ({ task, toggleComplete, deleteTodo, editTodo}) => {
         {task.task}
       </p>
       <div>
-          <>
             <FontAwesomeIcon icon={faPenToSquare} onClick={handleEditTodo} className={styles.editIcon} />
             <FontAwesomeIcon icon={faTrash} onClick={handleDeleteTodo} className={styles.deleteIcon} />
-          </>
       </div>
     </div>
     )}

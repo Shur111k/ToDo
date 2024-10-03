@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import styles from './style.module.css';
 
 export const TodoForm = ({ initialValue = '', handleSubmit, placeholder, buttonText}) => {
-
-  console.log(initialValue)
-
   const [value, setValue] = useState(initialValue);
 
   const onSubmit = (e) => {
